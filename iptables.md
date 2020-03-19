@@ -18,3 +18,11 @@ https://vogel.at.webry.info/201311/article_4.html
 # firewall 関連  
 * ufw の停止　# ufw disable  
 * iptables の設定保存　# apt install iptables-persistent
+
+---
+# iptables の設定恒久化
+```
+# apt install -y iptables-persistent
+# netfilter-persistant save
+# systemctl status netfilter-persistent
+```
