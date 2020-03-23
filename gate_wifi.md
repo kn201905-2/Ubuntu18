@@ -72,7 +72,8 @@ HandlePowerKey=poweroff or suspend
 # Ramdisk の設定
 * gate-wifi は毎日リセットされるため、memory の圧迫をさけるために ramdisk の容量は小さくしている。
 
-\# vim /etc/fstab
+\# vim /etc/fstab  
+以下を追記
 ```
 # /tmp, /var/tmp -> Ramdisk
 tmpfs /tmp tmpfs defaults,size=256m,noatime,mode=1777 0 0
@@ -80,4 +81,57 @@ tmpfs /var/tmp tmpfs defaults,size=256m,noatime,mode=1777 0 0
 
 # /var/log -> Ramdisk
 tmpfs /var/log tmpfs defaults,size=256m,noatime,mode=0755 0 0
+```
+noatime： アクセスした際に、アクセス時のタイムスタンプの変更をしない  
+mode： アクセス権。先頭の数字はスティッキービット  
+５番目の数字： バックアップを作る時を決定するために dump ユーティリティによって使われる。通常は０でよい  
+６番目の数字： ファイルシステムをチェックする順番を決めるために fsck によって使われる。RamDiskは０でよい  
+
+* 起動時にRAMディスクにディレクトリを作成するように設定する。一部のサービスは、サービス起動時にワーキングディレクトリの存在が必要となる。  
+\# vim /etc/rc.local  
+以下を記入する
+```
+#!/bin/bash
+
+mkdir -p /var/log/apt
+mkdir -p /var/log/dist-upgrade
+mkdir -p /var/log/fsck
+mkdir -p /var/log/installer
+mkdir -p /var/log/journal
+mkdir -p /var/log/landscape
+mkdir -p /var/log/lxd
+mkdir -p /var/log/samba
+mkdir -p /var/log/unattended-upgrades
+
+chown root.systemd-journal /var/log/journal
+chown landscape.landscape /var/log/landscape
+chown root.adm /var/log/samba
+chown root.adm /var/log/unattended-upgrades
+
+# Create Lastlog, wtmp, btmp
+touch /var/log/lastlog
+touch /var/log/wtmp
+touch /var/log/btmp
+
+chown root.utmp /var/log/lastlog
+chown root.utmp /var/log/wtmp
+chown root.utmp /var/log/btmp
+```
+* 上記の rc.local に、実行権限を与える　\# chmod +x /etc/rc.local  
+* Ramdisk に移行するフォルダのファイルを空にしておく
+```
+# find /tmp -type f
+# find /tmp -type f -exec cp -f /dev/null {} \;
+
+# find /var/tmp -type f
+# find /var/tmp -type f -exec cp -f /dev/null {} \;
+
+# find /var/log -type f
+# find /var/log -type f -exec cp -f /dev/null {} \;
+```
+* 再起動　\# reboot  
+* Ramdisk の確認
+```
+# df -h
+# ls -la /var/log
 ```
