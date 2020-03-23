@@ -51,4 +51,4 @@ network:
 * 確認　\# cat /proc/sys/net/ipv4/ip_forward（0 が表示されたらフォワーディングがされていない、ということ）  
 * 設定　\# echo 1 > /proc/sys/net/ipv4/ip_forward
 * 恒久的な設定　\# vim /etc/sysctl.conf  
-　コメントアウトされている「net.ipv4.ip_forward=1」という１行を有効化する。
+コメントアウトされている「net.ipv4.ip_forward=1」という１行を有効化する。
