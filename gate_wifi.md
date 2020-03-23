@@ -52,3 +52,32 @@ network:
 * 設定　\# echo 1 > /proc/sys/net/ipv4/ip_forward
 * 恒久的な設定　\# vim /etc/sysctl.conf  
 コメントアウトされている「net.ipv4.ip_forward=1」という１行を有効化する。
+
+---
+# パッケージの更新
+```
+# apt update（ソフトの更新確認）
+# apt upgrade（ソフトの更新）
+```
+
+---
+# 電源ボタンの設定
+
+\# vim /etc/systemd/logind.conf
+```
+HandlePowerKey=poweroff or suspend
+```
+
+---
+# Ramdisk の設定
+* gate-wifi は毎日リセットされるため、memory の圧迫をさけるために ramdisk の容量は小さくしている。
+
+\# vim /etc/fstab
+```
+# /tmp, /var/tmp -> Ramdisk
+tmpfs /tmp tmpfs defaults,size=256m,noatime,mode=1777 0 0
+tmpfs /var/tmp tmpfs defaults,size=256m,noatime,mode=1777 0 0
+
+# /var/log -> Ramdisk
+tmpfs /var/log tmpfs defaults,size=256m,noatime,mode=0755 0 0
+```
