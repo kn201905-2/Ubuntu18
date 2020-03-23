@@ -45,3 +45,10 @@ network:
 * 【注意】  
 　enp3s0 に、ネットワーク機器を接続していない場合、ip a としても、enp3s0 には ipアドレスが表示されない。さらに、起動時にネットワークの確認で数分待たされることになるため、上述した「systemd-networkd-wait-online.service」のマスクが必要となる。  
 　enp3s0 に、ネットワーク機器を接続すると、自動的にインターフェイスが立ち上がり、inet 192.168.0.100/24 と表示される。  
+
+---
+# ipv4 のフォワーディングの設定
+* 確認　\# cat /proc/sys/net/ipv4/ip_forward（0 が表示されたらフォワーディングがされていない、ということ）  
+* 設定　\# echo 1 > /proc/sys/net/ipv4/ip_forward
+* 恒久的な設定　\# vim /etc/sysctl.conf  
+　コメントアウトされている「net.ipv4.ip_forward=1」という１行を有効化する。
