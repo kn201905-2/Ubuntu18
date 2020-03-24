@@ -255,7 +255,8 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 以下の１行を追記。不要なコメントはすべて消しておいてよい。
 00 01 * * * /home/shutdown.sh
 ```
-* 確認　\# crontab -l  
+* 確認  
+\# crontab -l  
 * shutdown.sh の作成  
 \# vim /home/shutdown.sh
 ```
