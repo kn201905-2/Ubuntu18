@@ -135,3 +135,12 @@ chown root.utmp /var/log/btmp
 # df -h
 # ls -la /var/log
 ```
+
+---
+# code-server のインストール
+
+---
+# iptables の設定
+
+---
+# ipアドレス、route の設定
