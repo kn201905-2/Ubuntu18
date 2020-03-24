@@ -15,7 +15,7 @@ tmpfs /var/log tmpfs defaults,size=256m,noatime,mode=0755 0 0
 tmpfs /home/shared/ramdisk tmpfs defaults,size=12G,noatime,mode=0700,uid=user-k,gid=user-k 0 0
 （rsync -a を用いると、ramdisk の属性が、転送先フォルダの属性にコピーされるため注意すること）
 ```
-（参考）NUC-SMB は、１回の使用時間が短いため、Ramdisk のサイズを size=256m とした
+（参考）現在のところ、１回の使用時間が短い場合は size=256m、使用時間が長い場合は size=512m としている。
 
 noatime： アクセスした際に、アクセス時のタイムスタンプの変更をしない  
 mode： アクセス権。先頭の数字はスティッキービット  
