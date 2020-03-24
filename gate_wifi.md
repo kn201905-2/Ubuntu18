@@ -7,8 +7,8 @@
 
 ---
 # ~~起動時にネットワークの確認で、起動が遅くなることへの対処~~
+* ネットワークが立ち上がってからでないと、起動に失敗するサービス（dhcpなど）があったため、ネットワークの立ち上がりを待つことに変更した。
 ```
-　ネットワークが立ち上がってからでないと、起動に失敗するサービス（dhcpなど）があったため、ネットワークの立ち上がりを待つことに変更した。
 # systemctl unmask systemd-networkd-wait-online.service
 # systemctl enable systemd-networkd-wait-online.service
 ```
