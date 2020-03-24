@@ -202,3 +202,29 @@ INTERFACESv4="enp3s0"
 　　　/lib/systemd/system/isc-dhcp-server.service の修正が必要となるようである。（バグ？？）
 ```
 
+* 設定ファイル /etc/dhcp/dhcpd.conf の設定  
+\# vim /etc/dhcp/dhcpd.conf
+```
+・実際に必要になるのは、以下の９行のみ（実際には８行かも？）
+
+# option domain-name はコメントアウトしておけばよい。DNSサフィックスが空欄になるだけ。
+option domain-name-servers 8.8.8.8;
+
+# 以下の数字は「秒」
+default-lease-time 86400;  # １日
+max-lease-time 259200;  # ３日
+
+# DHCP 処理を行ったクライアント情報（IP アドレス・ホスト名等）の、
+# （ DNS サーバーが管理する）ゾーンデータ更新スタイルを指定する。
+# http://park12.wakwak.com/~eslab/pcmemo/linux/dhcpd/dhcpd3.html
+ddns-update-style none;
+
+# この行は、特に必須ではないと思う、、、
+authoritative;
+
+# この行で、アドレスの範囲と、next hop を指定する。
+subnet 192.168.1.0 netmask 255.255.255.0 {
+  range 192.168.1.200 192.168.1.254;
+  option routers 192.168.1.100;
+}
+```
