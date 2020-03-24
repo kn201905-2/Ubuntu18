@@ -247,3 +247,21 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 * dhcpサーバの起動  
 \# systemctl start isc-dhcp-server
 
+---
+# AM 1:00 に電源オフ
+\# crontab -e  
+初めて crontab -e するときは、使用するエディタを尋ねてくる。vim.basic を選択。
+```
+以下の１行を追記。不要なコメントはすべて消しておいてよい。
+00 01 * * * /home/shutdown.sh
+```
+* 確認　\# crontab -l  
+* shutdown.sh の作成  
+\# vim /home/shutdown.sh
+```
+#!/bin/sh
+/sbin/shutdown -h now  # おそらく、-h は必要ない
+```
+* shutdown.sh が実行可能なようにする  
+\# chmod +x shutdown.sh
+
