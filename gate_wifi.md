@@ -241,3 +241,8 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 　↓
 -pf /run/dhcpd.pid
 ```
+* dhcpサーバの自動起動の設定  
+\# systemctl enable isc-dhcp-server  
+* dhcpサーバの起動
+\# systemctl start isc-dhcp-server
+
