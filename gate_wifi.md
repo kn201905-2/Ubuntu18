@@ -183,3 +183,22 @@ network:
       dhcp6: no
       addresses: [ 192.168.1.100/24 ]
 ```
+
+---
+# DHCP サーバー
+* 今回は、isc-dhcp-server を利用した。（Internet Systems Consortium）  
+\# apt install -y isc-dhcp-server  
+
+* 設定ファイル isc-dhcp-server の設定  
+\# vim /etc/default/isc-dhcp-server
+```
+・実際に必要になるのは、以下の３行のみ（他は全部コメントアウト）
+
+DHCPDv4_CONF=/etc/dhcp/dhcpd.conf
+DHCPDv4_PID=/var/run/dhcpd.pid
+INTERFACESv4="enp3s0"
+
+（注）２行目のファイルの指定位置と、Systemd の起動設定ファイルに齟齬があるようなので、
+　　　/lib/systemd/system/isc-dhcp-server.service の修正が必要となるようである。（バグ？？）
+```
+
