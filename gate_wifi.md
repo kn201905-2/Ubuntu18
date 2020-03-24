@@ -228,3 +228,16 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
   option routers 192.168.1.100;
 }
 ```
+* Systemd の起動設定ファイルの調整  
+systemctl start isc-dhcp-server のときは問題ないが、電源投入後の自動起動時に問題が発生する。以下のようなエラーが出力される。
+```
+Can't create PID file /run/dhcp-server/dhcpd.pid
+```
+おそらくバグであろうと思われる。とりあえず以下のように修正した。  
+\# vim /lib/systemd/system/isc-dhcp-server.service
+```
+下から４行目を以下のように変更した。
+-pf /run/dhcp-server/dhcpd.pid
+　↓
+-pf /run/dhcpd.pid
+```
