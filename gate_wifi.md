@@ -266,3 +266,6 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 * shutdown.sh が実行可能なようにする  
 \# chmod +x shutdown.sh
 
+---
+# AM 6:30 に電源オン
+* BIOS で設定を行う
