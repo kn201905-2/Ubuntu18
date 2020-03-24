@@ -203,6 +203,7 @@ INTERFACESv4="enp3s0"
 ```
 
 * 設定ファイル /etc/dhcp/dhcpd.conf の設定  
+（参考URL）http://park12.wakwak.com/~eslab/pcmemo/linux/dhcpd/dhcpd3.html  
 \# vim /etc/dhcp/dhcpd.conf
 ```
 ・実際に必要になるのは、以下の９行のみ（実際には８行かも？）
