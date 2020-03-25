@@ -56,16 +56,16 @@ directory mode = 0700
  \# mkdir shared
 
 * Samba のユーザー登録。Linux に存在するユーザーで登録する必要がある。  
-  Linux と Samba では暗号化方式が異なるため、同じパスワードでも両方に登録が必要になる。  
-  \# pdbedit -a user-k
+Linux と Samba では暗号化方式が異なるため、同じパスワードでも両方に登録が必要になる。  
+\# pdbedit -a user-k
 
 * ディレクトリにアクセスできるように権限を変更しておく  
-  \# chown user-k:user-k /home/shared/  
-  \# chmod 774 /home/shared/
+\# chown user-k:user-k /home/shared/  
+\# chmod 774 /home/shared/
  
-* 一応サービスの設定  
-  \# systemctl enable smbd  
-  \# systemctl disable nmbd（netbios を使用しないため、nmb は必要ない）
+* サービスの自動起動の設定  
+\# systemctl enable smbd  
+\# systemctl disable nmbd（netbios を使用しないため、nmb は必要ない）
   
 * TCP 445 を利用するため、FW の設定には注意すること
 
