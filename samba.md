@@ -2,7 +2,8 @@
 # samba の設定  
 * インストールの確認　# samba -V  
 * インストールする場合　# apt install -y samba  
-* samba の設定ファイルを設定  
+* samba の設定ファイルを設定
+
 \# vim /etc/samba/smb.conf  
 以下、変更箇所  
 ```
