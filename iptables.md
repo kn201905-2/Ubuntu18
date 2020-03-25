@@ -9,11 +9,19 @@
 ```
 ファイル指定の前の「-」は、ログ出力時のディスクとの同期の抑制を示す。（パフォーマンス向上が狙える）  
 「& ~」は、対象としているログを廃棄する、ということを示す。  
+```
+& は、１つのセレクタに複数のアクションを指定するときに利用する。
+FILTER ACTION
+& ACTION
+& ACTION
+
+~ は、FILTER されたパケットを破棄する。
+```
 
 * rsyslog を再起動　# systemctl restart rsyslog  
 
 参考URL：  
-http://www.geocities.jp/yasasikukaitou/rsyslog-filter.html  
+https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/system_administrators_guide/s1-basic_configuration_of_rsyslog
 https://vogel.at.webry.info/201311/article_4.html  
 
 ---
