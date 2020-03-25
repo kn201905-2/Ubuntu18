@@ -53,8 +53,7 @@ directory mode = 0700
 \# testparm  
 
 * 共有ディレクトリの作成  
- \# cd /home  
- \# mkdir shared
+ \# mkdir /home/shared
 
 * Samba のユーザー登録。Linux に存在するユーザーで登録する必要がある。  
 Linux と Samba では暗号化方式が異なるため、同じパスワードでも両方に登録が必要になる。  
@@ -64,9 +63,12 @@ Linux と Samba では暗号化方式が異なるため、同じパスワード�
 \# chown user-k:user-k /home/shared/  
 \# chmod 774 /home/shared/
  
-* サービスの自動起動の設定  
-\# systemctl enable smbd  
-\# systemctl disable nmbd（netbios を使用しないため、nmb は必要ない）
+* サービスの自動起動の設定
+```
+# systemctl enable smbd
+# systemctl disable nmbd  # netbios を使用しないため、nmb は必要ない
+# systemctl mask nmbd
+```
   
 * TCP 445 を利用するため、FW の設定には注意すること
 
