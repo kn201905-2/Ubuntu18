@@ -148,7 +148,7 @@ BASH_OPR="while true; do sleep 540s; { echo; date; smartctl -A ${DEVICE/%?} | gr
 
 * シェルスクリプトファイルを作成
 
-\# vim /home/shared HDD_mount.sh
+\# vim /home/shared/HDD_mount.sh
 ```
 #!/bin/bash
 udisksctl monitor | while read ev; do
