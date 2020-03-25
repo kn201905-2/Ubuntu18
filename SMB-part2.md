@@ -123,36 +123,6 @@ Linux と Samba では暗号化方式が異なるため、同じパスワード�
 # Ramdisk の設定
 * 別ページを参照のこと
 
-
-* smbd より先に rc.local が実行されるように設定する　# vim /lib/systemd/system/smbd.service
-```
-[Unit] の After を以下のように変更する。
-
-After=network.target rc-local.service
-（nmbd と winbind は利用しないため、削除してよい。winbind は security=domain などの場合に利用されるデーモン）
-```
-
-* Ramdisk に移行するフォルダのファイルを空にしておく
-```
-# find /tmp -type f
-# find /tmp -type f -exec cp -f /dev/null {} \;
-
-# find /var/tmp -type f
-# find /var/tmp -type f -exec cp -f /dev/null {} \;
-
-# find /var/log -type f
-# find /var/log -type f -exec cp -f /dev/null {} \;
-```
-（参考）ネット上の情報では「# find /var/log/ -type f -name * -exec cp -f /dev/null {} ;」となってたが、-name オプションは不要と判断した
-
-* 再起動　# reboot
-* Ramdisk の確認
-```
-# df -h
-# ls -la /var/log
-# systemctl status smbd
-```
-
 ---
 # 外付けHDDとの接続について（UAS無効化）
 * JMS567 との相性が悪いとき（転送速度が 100MB/s を下回るとき）は、UASドライバーを無効化すると良い  
