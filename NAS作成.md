@@ -243,10 +243,3 @@ Port 3002
 上記の代替策として、iptables で受け入れ先を絞ることにした
 ```
 
----
-# iptables の変更
-```
-sh ipt-...
-/etc/init.d/netfilter-persistent save
-/etc/init.d/netfilter-persistent reload
-```
