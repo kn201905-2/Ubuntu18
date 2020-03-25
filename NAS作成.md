@@ -30,12 +30,6 @@ https://shell-mag.com/2nd_linuxoperations/
 # date（設定変更の確認）
 ```
 
-* vim の設定  
-~/.bashrc に以下を記述
-```
-alias vim='vim -c start'
-```
-
 * ディスプレイのスリープの設定  
 ログインしなくても、自動的にディスプレイをスリープにさせるために、grub で設定を行う
 ```
