@@ -148,7 +148,7 @@ chown root.utmp /var/log/btmp
 ---
 # iptables の設定
 
-* iptables の設定後、情報を永続化させるために以下をインストールする
+* iptables の設定を永続化させるために以下をインストールする
 ```
 # apt install -y iptables-persistent
 ```
@@ -156,6 +156,30 @@ chown root.utmp /var/log/btmp
 ```
 # netfilter-persistent save
 ```
+
+* iptables の設定
+
+* iptables に関する syslog を分離する  
+gate_wifi は、種々のタブレットや、外部機器からの通信を制御するため、分離されるワーニングの種類が多いことに注意。
+
+\# vim /etc/rsyslog.d/10-my-iptables.conf
+```
+:msg,contains,"Drp_" -/var/log/iptables.log
+& ~
+
+:msg,contains,"Mk_" -/var/log/iptables.mk
+& ~
+
+:msg,contains,"Kc_" -/var/log/iptables.kc
+& ~
+
+:msg,contains,"mac_" -/var/log/iptables.ggl
+& ~
+
+:msg,contains,"chk_" -/var/log/iptables.chk
+& ~
+```
+別ページ「iptables に関する syslog を分離する」を参照するとよい。
 
 ---
 # ipアドレス、route の設定
