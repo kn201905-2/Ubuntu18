@@ -102,7 +102,8 @@ Type = simple
 [Install]
 WantedBy = multi-user.target
 ```
-* systemd から実行されるバッチファイルを作成する  
+* systemd から実行されるバッチファイルを作成する
+
 \# vim /home/shared/hdd-automount.sh
 ```
 #!/bin/bash
@@ -143,11 +144,10 @@ BASH_OPR="while true; do sleep 540s; { echo; date; smartctl -A ${DEVICE/%?} | gr
 * メインマシンから、ipt+++.sh を転送して、バッチファイルを実行　# sh ipt+++.sh
 * 設定した iptables の恒久化　# apt install iptables-persistent（apt を upgrade しておかないと install できないため注意）
 * 念の為に確認　# ufw status（inactive になっていることを確認。FW の設定は、全て iptables で行う）
-* ptables に関する syslog を分離する。  
+* iptables に関する syslog を分離する。  
 iptables のログ出力は syslog が担っているため、syslog の出力にフィルタを掛ける。  
 /etc/rsyslog.d/ にフィルタを記述したファイルを置けば、フィルタが掛かるようになる。  
 
-\# touch /etc/rsyslog.d/10-my-iptables.conf  
 \# vim /etc/rsyslog.d/10-my-iptables.conf
 ```
 :msg,contains,"Drp_" -/var/log/iptables.log
