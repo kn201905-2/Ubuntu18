@@ -140,6 +140,47 @@ BASH_OPR="while true; do sleep 540s; { echo; date; smartctl -A ${DEVICE/%?} | gr
 * systemctl daemon-reload
 
 ---
+# (参考) 自動マウントを行うもう１つの方法
+* udisksctl の monitor 機能を用いて、外付けHDDの自動マウントを実現することも可能であった。  
+ただ、ずっと monitor しているのは、あまり好ましいと思わなかったので、この方法は採用していない。
+
+* 現状の確認（ラベルを確認する）　# lsblk
+
+* シェルスクリプトファイルを作成
+
+\# vim /home/shared HDD_mount.sh
+```
+#!/bin/bash
+udisksctl monitor | while read ev; do
+　　if [[ $ev =~ /dev/disk/by-label/APPZ_01 ]]; then
+　　　　mount -L APPZ_01 /home/shared/APPZ_01
+　　fi
+done
+```
+
+* HDD_mount.sh を起動時に自動実行するように設定する。Systemd の機能を用いる。
+
+\# vim /etc/systemd/system/HDD_mount.service
+```
+[Unit]
+Description = HDD-auto-mount daemon
+
+[Service]
+ExecStart = /home/shared/HDD_mount.sh
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = multi-user.target
+```
+
+* 上記で作ったサービスの自動起動の設定
+```
+# systemctl start HDD_mount.service
+# systemctl enable HDD_mount.service
+```
+
+---
 # ipatables の設定
 * メインマシンから、ipt+++.sh を転送して、バッチファイルを実行　# sh ipt+++.sh
 * 設定した iptables の恒久化　# apt install iptables-persistent（apt を upgrade しておかないと install できないため注意）
