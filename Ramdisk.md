@@ -56,7 +56,9 @@ chown root.utmp /var/log/btmp
 ```
 
 * 上記の rc.local に、実行権限を与える　# chmod +x /etc/rc.local
-* smbd より先に rc.local が実行されるように設定する　# vim /lib/systemd/system/smbd.service
+* smbd より先に rc.local が実行されるように設定する
+
+\# vim /lib/systemd/system/smbd.service
 ```
 [Unit] の After を以下のように変更する。
 
