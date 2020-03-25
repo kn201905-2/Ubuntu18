@@ -189,49 +189,9 @@ WantedBy = multi-user.target
 * iptables に関する syslog を分離する。（別ページを参照のこと）
 
 ---
-# IPv6 の無効化（不要な inbound 通信を防ぐため）
-
-* まず、IPv6 のアドレスを持っていることを確認　# ip addr 
-```
-ens2:  mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 52:54:00:08:d2:ef brd ff:ff:ff:ff:ff:ff
-    inet 192.168.10.40/24 brd 192.168.10.255 scope global ens2
-       valid_lft forever preferred_lft forever
-    inet6 fe80::5054:ff:fe08:d2ef/64 scope link
-       valid_lft forever preferred_lft forever
-```
-* /etc/default/grub を編集する。以下の文言を追加
-```
-GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1"
-GRUB_CMDLINE_LINUX="ipv6.disable=1"
-```
-* \# update-grub 
-* \# reboot
-* inet6 の行が消えていることを確認する　# ip addr
-
----
-# IPv6 の無効化２（種々の不具合を避けるために、リンクリーカルのみを残す方法）
-
-* IPv6 の RA を受け取らないようにする（accept-ra: no）
-```
-vim /etc/netplan/01-netcfg.yaml
-
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    enp4s0:
-      dhcp4: no
-      dhcp6: no
-      accept-ra: no
-      addresses: [ 192.168.100.5/24 ]
-      gateway4: 192.168.100.1
-      nameservers:
-          addresses: ["8.8.8.8"]
-```
-* \# reboot
-* \# ip a
-* inet6 に、リンクローカルアドレスのみがあることを確認する
+# IPv6 の無効化
+* 別ページを参照のこと
+* 家庭内LAN においては、NGN を通すわけではないから、v6 と v4 のパケット変換は発生しない。
 
 ---
 # ssh ポート番号の変更等
