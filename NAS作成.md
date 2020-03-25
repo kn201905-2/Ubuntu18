@@ -30,6 +30,12 @@ https://shell-mag.com/2nd_linuxoperations/
 # date（設定変更の確認）
 ```
 
+* vim の設定  
+~/.bashrc に以下を記述
+```
+alias vim='vim -c start'
+```
+
 * ディスプレイのスリープの設定  
 ログインしなくても、自動的にディスプレイをスリープにさせるために、grub で設定を行う
 ```
@@ -177,25 +183,10 @@ WantedBy = multi-user.target
 ---
 # ipatables の設定
 * メインマシンから、ipt+++.sh を転送して、バッチファイルを実行　# sh ipt+++.sh
-* 設定した iptables の恒久化　# apt install iptables-persistent（apt を upgrade しておかないと install できないため注意）
+* 設定した iptables の恒久化 `# apt install iptables-persistent`（apt を upgrade しておかないと install できないため注意）  
+または、`# netfilter-persistent save`。
 * 念の為に確認　# ufw status（inactive になっていることを確認。FW の設定は、全て iptables で行う）
-* iptables に関する syslog を分離する。  
-iptables のログ出力は syslog が担っているため、syslog の出力にフィルタを掛ける。  
-/etc/rsyslog.d/ にフィルタを記述したファイルを置けば、フィルタが掛かるようになる。  
-
-\# vim /etc/rsyslog.d/10-my-iptables.conf
-```
-:msg,contains,"Drp_" -/var/log/iptables.log
-& ~
-```
-ファイル指定の前の「-」は、ログ出力時のディスクとの同期の抑制を示す。（パフォーマンス向上が狙える）  
-「& ~」は、対象としているログを廃棄する、ということを示す。
-
-* rsyslog を再起動　# systemctl restart rsyslog  
-  
-参考URL：  
-http://www.geocities.jp/yasasikukaitou/rsyslog-filter.html  
-https://vogel.at.webry.info/201311/article_4.html
+* iptables に関する syslog を分離する。（別ページを参照のこと）
 
 ---
 # IPv6 の無効化（不要な inbound 通信を防ぐため）
@@ -259,4 +250,3 @@ sh ipt-...
 /etc/init.d/netfilter-persistent save
 /etc/init.d/netfilter-persistent reload
 ```
-
