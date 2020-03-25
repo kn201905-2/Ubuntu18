@@ -79,8 +79,8 @@ GRUB_CMDLINE_LINUX_DEFAULT="consoleblank=60"
 
 * 外付けHDD がマウントされるマウントポイントを作成する　# mkdir /home/shared/APPZ_01
 
-* udev に systemd のサービスを start させる rule を設定する　# vi /etc/udev/rules.d/99-local.rules  
-または、保存されている 99-local.rules を転送すれば良い　# cp 99-local.rules /etc/udev/rules.d/
+* udev に systemd のサービスを start させる rule を設定する　`# vi /etc/udev/rules.d/99-local.rules`  
+または、保存されている 99-local.rules を転送すれば良い　`# cp 99-local.rules /etc/udev/rules.d/`
 ```
 ACTION=="add", ENV{DEVTYPE}=="partition", ENV{ID_FS_LABEL}=="APPZ_01", RUN+="/bin/systemctl start hdd-automount@%k.service"
 ```
