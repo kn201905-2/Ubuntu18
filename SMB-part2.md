@@ -68,8 +68,17 @@ GRUB_CMDLINE_LINUX_DEFAULT="consoleblank=60"
 ---
 # udev を用いた 外付けHDD の自動マウント
 * 外付け対象となる HDD の情報が知りたい場合　# lsblk -f
-* ネットに掲載されている情報のように、udev から直接 mount コマンドを起動させても、どうもデバイスの準備が間に合っていないらしくてマウントできたなかった。そのため、systemd のサービスを用いて mount コマンドを実行させることにする。
+
+* ネットに掲載されている情報のように、udev から直接 mount コマンドを起動させても、デバイスの準備が間に合っていないらしくてマウントできたなかった。そのため、systemd のサービスを用いて mount コマンドを実行させることにする。
+
+* smartclt をインストールしておく
+```
+# smartctl --version
+# apt install smartmontools
+```
+
 * 外付けHDD がマウントされるマウントポイントを作成する　# mkdir /home/shared/APPZ_01
+
 * udev に systemd のサービスを start させる rule を設定する　# vi /etc/udev/rules.d/99-local.rules  
 または、保存されている 99-local.rules を転送すれば良い　# cp 99-local.rules /etc/udev/rules.d/
 ```
