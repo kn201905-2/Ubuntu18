@@ -25,9 +25,9 @@ https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/sy
 https://vogel.at.webry.info/201311/article_4.html  
 
 ---
-# firewall 関連  
+# firewalld 関連  
+* ufw の状態確認　# ufw status
 * ufw の停止　# ufw disable  
-* iptables の設定保存　# apt install iptables-persistent
 
 ---
 # iptables の設定恒久化
