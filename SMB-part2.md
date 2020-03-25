@@ -87,7 +87,8 @@ ACTION=="add", ENV{DEVTYPE}=="partition", ENV{ID_FS_LABEL}=="APPZ_01", RUN+="/bi
 上記において、%k は KERNEL を表し、sdb1 などのデバイス名が設定される。  
 systemctl start hdd-automount@sdb1.service とすると、hdd-automount@.service が、%i = sdb1 として start される。（%i はインスタンス名という意味らしい）
 
-* systemd に、バッチファイルを起動させるサービスを登録する  
+* systemd に、バッチファイルを起動させるサービスを登録する
+
 \# vim /etc/systemd/system/hdd-automount@.service
 ```
 [Unit]
