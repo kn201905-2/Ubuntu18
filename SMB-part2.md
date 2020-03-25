@@ -125,27 +125,7 @@ Linux と Samba では暗号化方式が異なるため、同じパスワード�
 
 ---
 # 外付けHDDとの接続について（UAS無効化）
-* JMS567 との相性が悪いとき（転送速度が 100MB/s を下回るとき）は、UASドライバーを無効化すると良い  
-（通常の usb-storage ドライバに変更する）
-```
-まず、JMS567 のベンダIDとデバイスIDを調べる
-# lsusb
-# lsusb -t
-ベンダIDとデバイスIDが、152d:0567 と分かると思う。
-
-/etc/default/grub に以下を追記
-GRUB_CMDLINE_LINUX="usb_storage.quirks=152d:0567:u"
-
-# update-grub
-# reboot
-
-「Driver=usb-storage」となっているかを確認
-# lsusb -t
-
-参考：
-https://www.smartmontools.org/wiki/SAT-with-UAS-Linux
-https://www.atmarkit.co.jp/ait/articles/1902/01/news045.html
-```
+* 別ページを参照のこと
 
 ---
 # udev を用いた 外付けHDD の自動マウント
