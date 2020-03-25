@@ -21,7 +21,7 @@ FILTER ACTION
 * rsyslog を再起動　# systemctl restart rsyslog  
 
 参考URL：  
-https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/system_administrators_guide/s1-basic_configuration_of_rsyslog
+https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/system_administrators_guide/s1-basic_configuration_of_rsyslog  
 https://vogel.at.webry.info/201311/article_4.html  
 
 ---
