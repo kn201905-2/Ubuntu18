@@ -173,7 +173,7 @@ gate_wifi は、種々のタブレットや、外部機器からの通信を制�
 :msg,contains,"Kc_" -/var/log/iptables.kc
 & ~
 
-:msg,contains,"mac_" -/var/log/iptables.ggl
+:msg,contains,"mac_" -/var/log/iptables.mac
 & ~
 
 :msg,contains,"chk_" -/var/log/iptables.chk
