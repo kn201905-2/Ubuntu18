@@ -11,7 +11,7 @@
 https://www7390uo.sakura.ne.jp/wordpress/archives/466
 ```
 [global]
-logfile="/var/log/ulog/ulogd.log"
+logfile="/var/log/ulogd.log"
 loglevel=3
 
 plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_inppkt_NFLOG.so"
@@ -28,7 +28,7 @@ stack=log1:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu1:LOG
 group=0
 
 [emu1]
-file="/var/log/iptables.log"
+file="/var/log/ulog_syslogemu.log"
 sync=1
 ```
 
@@ -47,3 +47,14 @@ sync=1
 # reboot
 ```
 再起動後に、iptables で、NFLOG チェーンが使えるようになるようである。
+
+---
+# iptables への書き方
+
+```
+iptables -N U_LOG
+iptables -A U_LOG -j NFLOG --nflog-group 0 --nflog-prefix 'iptables:' --nflog-threshold 5
+
+--nflog-group: [log1] で指定したグループの番号。log1:NFLOG となっている。
+--nflog-threshold: ulogdが処理を開始するまでにキューへ溜め込むパケット数を2から50の間で指定する。
+```
