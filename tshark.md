@@ -50,3 +50,40 @@ dst port 135 and tcp port 135 and ip[2:2]==48
 icmp[icmptype]==icmp-echo and ip[2:2]==92 and icmp[8:4]==0xAAAAAAAA
 ```
 
+* パケットの詳細を表示 -V
+```
+# tshark -i 1 -V -f 'port 53'
+```
+
+* 簡易な統計 -z
+```
+# tshark -r packet -z conv,ip
+# tshark -r packet -z http_req,tree
+# tshark -r packet -z hosts
+
+# tshark -z http,stat
+# tshark -z http,tree
+```
+
+* キャプチャの自動停止
+```
+10秒間で停止
+# tshark -a duration:10
+
+ファイルサイズが10キロバイトに達すると停止
+# tshark -w packet -a filesize:10
+
+ファイルサイズが10キロバイトに達すると次のファイルに記録。ファイル数が5つになったら停止
+# tshark -w packet -a filesize:10 -a files:5
+
+パケット数で指定
+# tshark -c 10
+
+「-b」オプションを指定するとファイルのバッファサイズを指定できる
+基本は「-a」と同じですが、ログローテーションのようにファイルを切り替えるタイミングを指定するだけで、停止はしないので注意。
+
+ファイルサイズが10キロバイトに達したら別のファイルに切り替え。ファイル数が5つになったら1番古いファイルを削除して新しいファイルで上書きする
+# tshark -w packet -b filesize:10 -b files:5
+```
+
+
