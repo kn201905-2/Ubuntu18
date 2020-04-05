@@ -1,6 +1,9 @@
 * 公式オプション  
 https://www.wireshark.org/docs/man-pages/tshark.html
 
+その他の参考  
+https://qiita.com/hana_shin/items/0d997d9d9dd435727edf
+
 * インストール
 ```
 # apt install tshark
@@ -48,6 +51,12 @@ dst host ff02::1
 
 dst port 135 and tcp port 135 and ip[2:2]==48
 icmp[icmptype]==icmp-echo and ip[2:2]==92 and icmp[8:4]==0xAAAAAAAA
+
+その他の書き方
+# tshark -i eth0 -Y 'tcp.dstport==80' -n
+# tshark -i eth0 -n -Y 'tcp.flags.syn==1 and tcp.flags.ack==0'
+# tshark -i eth0 -Y 'icmp.type==8' -n
+# tshark -i eth0 -Y  'icmp.type==0 or icmp.type==8'
 ```
 
 * パケットの詳細を表示 -V
@@ -57,12 +66,16 @@ icmp[icmptype]==icmp-echo and ip[2:2]==92 and icmp[8:4]==0xAAAAAAAA
 
 * 簡易な統計 -z
 ```
-# tshark -r packet -z conv,ip
+# tshark -r packet -z conv,ip （conv = conversation）
+# tshark -r packet -z conv,tcp
 # tshark -r packet -z http_req,tree
 # tshark -r packet -z hosts
 
 # tshark -z http,stat
 # tshark -z http,tree
+
+全プロトコルの統計情報を表示する方法（-q は出力表示の簡略化）
+# tshark -qr test.cap -z io,phs
 ```
 
 * キャプチャの自動停止
@@ -89,3 +102,33 @@ icmp[icmptype]==icmp-echo and ip[2:2]==92 and icmp[8:4]==0xAAAAAAAA
 
 * 基本的には「-f」で取得したいデータをフィルタして、「-a」でファイルに取得する時間を指定。「-z」で統計を確認。
 問題がありそうなパケットに関しては「-x」や「-V」で詳細を確認。といった流れで大抵の需要は満たせると思います。
+
+* pcap ファイルから、条件を指定して表示させる方法
+```
+# tshark -r test.cap 'tcp.port==80' -n
+-n : すべての名前解決を無効にする。(デフォルト:有効）
+
+# tshark -r test.cap 'tcp.dstport==80' -n
+# tshark -r test.cap 'tcp.srcport==80' -n
+
+# tshark -r test.cap 'tcp.flags.syn==1' and 'tcp.flags.ack==0' -n
+# tshark -r test.cap 'tcp.flags.fin==1' -n
+
+# tshark -r test.cap 'ip.src==192.168.0.100' -n
+# tshark -r test.cap 'ip.dst==192.168.0.100' -n
+
+# tshark -r ping.cap 'icmp.type==8'  # echo request
+# tshark -r ping.cap 'icmp.type==0'  # echo reply
+
+# tshark -r test.cap -Y 'frame.number>=10 and frame.number<=20'
+```
+
+* パケットの取得時刻
+```
+パケットの取得時刻を表示する場合（-ta）
+# tshark -r dns.cap -ta
+
+パケットの取得時刻の差分（１つ１つが「何秒」ずれて取得されたかが表示される）
+# tshark -r dns.cap -td
+
+```
