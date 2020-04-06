@@ -26,7 +26,9 @@ https://qiita.com/hana_shin/items/0d997d9d9dd435727edf
 -x : パケットの中身を 16進ダンプをする
 ```
 
-* フィルタ -f
+* フィルタ -f  
+https://wiki.wireshark.org/CaptureFilters#CaptureFilters-1  
+https://www.wireshark.org/docs/man-pages/pcap-filter.html
 ```
 # tshark -i 1 -f 'host 101.111.73.127'
 # tshark -i 1 -f 'port 53'
