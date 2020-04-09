@@ -9,10 +9,12 @@
 ```
 
 * radvd.conf を準備する
+
 参考：  
 https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/networking_guide/sec-configuring_the_radvd_daemon_for_ipv6_routers  
+https://linux.die.net/man/5/radvd.conf
 
-# vim /etc/radvd.conf
+\# vim /etc/radvd.conf
 ```
 # 以下の設定は、RedHat が公開している例に沿っている
 
