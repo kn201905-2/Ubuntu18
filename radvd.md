@@ -18,7 +18,7 @@ https://linux.die.net/man/5/radvd.conf
 ```
 # 以下の設定は、RedHat が公開している例に沿っている
 
-interface enp1s0
+interface enp3s0
 {
         AdvSendAdvert on;
         MinRtrAdvInterval 200;
@@ -30,4 +30,11 @@ interface enp1s0
                 AdvRouterAddr off;
         };
 };
+```
+
+* radvd の起動
+```
+# systemctl enable radvd
+# systemctl start radvd
+# systemctl status radvd
 ```
