@@ -45,27 +45,63 @@ https://shio-ax.hatenablog.com/entry/2019/05/27/174018
 \# vim /etc/netplan/01-netcfg.yaml
 ```
 network:
-　version: 2
-　renderer: networkd
-　ethernets:
-　　enp1s0:
-　　　dhcp4: no（false でもよい)
-　　　dhcp6: no（false でもよい)
-　　　addresses: [192.168.100.2/24]
-　　　gateway4: 192.168.100.1
-　　　nameservers:
-　　　　addresses: [8.8.8.8]
-　　enp3s0:
-　　　dhcp4: no
-　　　dhcp6: no
-　　　addresses: [192.168.0.100/24]
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp1s0:
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 192.168.100.3/24
+      nameservers:
+        addresses:
+          - 8.8.8.8
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.100.1
+        - to: 192.168.0.0/24
+          via: 192.168.100.2
+    enp3s0:
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 192.168.1.100/24
+  bridges:
+    br0:
+      dhcp4: no
+      dhcp6: no
+      interfaces: [ enp1s0, enp3s0 ]
+      parameters:
+        stp: no
 ```
 * yaml ファイルを編集した後は、以下のコマンドで network を更新する。再起動の必要はない。  
 \# netplan apply  
 
-* 【注意】  
+* 【注意１】  
+　上記の設定でブリッジが張られるため、一度通信が途絶してしまう。  
+　ebtables で、v4 パケットをブリッジから drop させることが必要となる。
+
+* 【注意２】  
 　enp3s0 に、ネットワーク機器を接続していない場合、ip a としても、enp3s0 には ipアドレスが表示されない。さらに、起動時にネットワークの確認で数分待たされることになるため、上述した「systemd-networkd-wait-online.service」のマスクが必要となる。  
 　enp3s0 に、ネットワーク機器を接続すると、自動的にインターフェイスが立ち上がり、inet 192.168.0.100/24 と表示される。  
+
+---
+# ebtables の設定
+参考：  
+https://netplan.io/faq#use-pre-up-post-up-etc-hook-scripts  
+https://www7390uo.sakura.ne.jp/wordpress/archives/tag/netplan  
+
+* ネットワークが立ち上がったときに、ebtables のスクリプトを走らせる
+
+\# vim /etc/networkd-dispatcher/routable.d/10-ifup-ebt-broute
+```
+#!/bin/sh
+
+ebtables -t broute -F
+ebtables -t broute -P BROUTING DROP
+ebtables -t broute -A BROUTING -p IPv6 -j ACCEPT
+```
+必要ないと思われるが、一応念のために、chmod +x 10-ifup-ebt-broute としておいた。
 
 ---
 # ipv4 のフォワーディングの設定
