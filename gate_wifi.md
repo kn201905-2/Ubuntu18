@@ -22,6 +22,21 @@
 ```
 
 ---
+# コマンドプロンプトの変更
+
+以下を、~/.bashrc に追記しておけばよい。
+```
+・緑色に変更
+PS1="\[\e[1;32m\][\H: \w]\[\e[0m\]\n\\$ "
+
+緑色： 32、黄色： 33、青色： 34、パープル： 35、シアン： 36、白色: 37
+
+参考 URL：
+https://www.atmarkit.co.jp/flinux/rensai/linuxtips/002cngprmpt.html
+https://shio-ax.hatenablog.com/entry/2019/05/27/174018
+```
+
+---
 # ip アドレスの設定
 * Ubuntu 18 からは、netplan で設定するように変更された。  
 * インストール時に、enp1s0 の設定を行っておくと、netplan用の yaml ファイルが生成されている。  
