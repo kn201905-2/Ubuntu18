@@ -196,6 +196,56 @@ chown root.utmp /var/log/btmp
 ---
 # code-server のインストール
 
+以下の URL で、ダウンロードするファイルを決める  
+https://github.com/cdr/code-server/releases
+```
+# wget https://github.com/cdr/code-server/releases/download/1.1156-vsc1.33.1/code-server1.1156-vsc1.33.1-linux-x64.tar.gz  
+# tar xvzf code-server1.1156-vsc1.33.1-linux-x64.tar.gz（z は gzip の指定）  
+```
+以上で code-server は利用可能となる。（tar で展開すると、展開したフォルダの中に「code-server」という実行ファイルがある。それを実行すれば、code-server が立ち上がる。）
+今回は、以下のような起動用バッチファイルを作成した。
+```
+#!/bin/bash
+code-server1.1156-vsc1.33.1-linux-x64/code-server -p 3010 -N
+
+・-p でリスンするポート番号を指定
+・-N でパスワード無しでログイン可能となる
+・その他のオプションに関しては、code-server --help で調べると良い
+```
+
+---
+# ulogd2 のインストール
+```
+# apt install ulogd2
+```
+* ulogd2 の設定  
+参考例:  
+https://www7390uo.sakura.ne.jp/wordpress/archives/466
+
+\# vim /etc/ulogd.conf
+```
+[global]
+logfile="/var/log/ulogd.log"
+loglevel=3
+
+plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_inppkt_NFLOG.so"
+plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_filter_IFINDEX.so"
+plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_filter_IP2STR.so"
+plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_filter_PRINTPKT.so"
+plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_output_LOGEMU.so"
+plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_output_SYSLOG.so"
+plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_raw2packet_BASE.so"
+
+stack=log1:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu1:LOGEMU
+
+[log1]
+group=0
+
+[emu1]
+file="/var/log/ulog_syslogemu.log"
+sync=1
+```
+
 ---
 # iptables の設定
 
