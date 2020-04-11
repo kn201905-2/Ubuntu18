@@ -213,6 +213,11 @@ code-server1.1156-vsc1.33.1-linux-x64/code-server -p 3010 -N
 ・その他のオプションに関しては、code-server --help で調べると良い
 ```
 
+* settings.json を、以下の位置にコピー
+```
+~/.local/share/code-server/User
+```
+
 ---
 # ulogd2 のインストール
 ```
@@ -225,24 +230,77 @@ https://www7390uo.sakura.ne.jp/wordpress/archives/466
 \# vim /etc/ulogd.conf
 ```
 [global]
-logfile="/var/log/ulogd.log"
+# logfile for status messages
+logfile="/var/log/ulog.log"
+
+# loglevel: debug(1), info(3), notice(5), error(7) or fatal(8) (default 5)
 loglevel=3
+
+######################################################################
+# PLUGIN OPTIONS
+######################################################################
 
 plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_inppkt_NFLOG.so"
 plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_filter_IFINDEX.so"
 plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_filter_IP2STR.so"
 plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_filter_PRINTPKT.so"
 plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_output_LOGEMU.so"
-plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_output_SYSLOG.so"
 plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_raw2packet_BASE.so"
 
+# IFO
 stack=log1:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu1:LOGEMU
 
+# chk
+stack=log2:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu2:LOGEMU
+
+# Mk
+stack=log3:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu3:LOGEMU
+
+# Kc
+stack=log4:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu4:LOGEMU
+
+# mac
+stack=log5:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu5:LOGEMU
+
+
+# ------------------------
+
 [log1]
-group=0
+# Group O is used by the kernel to log connection tracking invalid message
+group=0  # 0 は特別な意味があるらしい
+
+[log2]
+group=2
+
+[log3]
+group=3
+
+[log4]
+group=4
+
+[log5]
+group=5
+
+# ------------------------
 
 [emu1]
-file="/var/log/ulog_syslogemu.log"
+file="/var/log/Ip4_IFO.log"
+sync=1
+
+[emu2]
+file="/var/log/Ip4_chk.log"
+sync=1
+
+[emu3]
+file="/var/log/Ip4_Mk.log"
+sync=1
+
+[emu4]
+file="/var/log/Ip4_Kc.log"
+sync=1
+
+[emu5]
+file="/var/log/Ip4_mac.log"
 sync=1
 ```
 
@@ -254,6 +312,8 @@ sync=1
 何か問題があれば、
 # journalctl -xe
 などで調べる。現時点では、/run/ulog/ulogd.pid が読み取れない、というエラーが表示されてるが、、、
+
+https://kb.gtkc.net/iptables-with-ulogd-quick-howto/
 ```
 
 * システム再起動後に、iptables で NFLOG チェーンが使えるようになるようである。
