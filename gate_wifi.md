@@ -246,6 +246,18 @@ file="/var/log/ulog_syslogemu.log"
 sync=1
 ```
 
+* ulogd.conf の内容が問題ないかを確認する
+```
+# systemctl restart ulogd
+# systemctl status ulogd
+
+何か問題があれば、
+# journalctl -xe
+などで調べる。現時点では、/run/ulog/ulogd.pid が読み取れない、というエラーが表示されてるが、、、
+```
+
+* システムを再起動後に、iptables で NFLOG チェーンが使えるようになるようである。
+
 ---
 # iptables の設定
 
