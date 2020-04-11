@@ -256,7 +256,16 @@ sync=1
 などで調べる。現時点では、/run/ulog/ulogd.pid が読み取れない、というエラーが表示されてるが、、、
 ```
 
-* システムを再起動後に、iptables で NFLOG チェーンが使えるようになるようである。
+* システム再起動後に、iptables で NFLOG チェーンが使えるようになるようである。
+
+* （参考）iptables への書き方
+```
+iptables -N U_LOG
+iptables -A U_LOG -j NFLOG --nflog-group 0 --nflog-prefix 'iptables:' --nflog-threshold 5
+
+--nflog-group: [log1] で指定したグループの番号。log1:NFLOG となっている。
+--nflog-threshold: ulogdが処理を開始するまでにキューへ溜め込むパケット数を2から50の間で指定する。
+```
 
 ---
 # iptables の設定
