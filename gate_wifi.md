@@ -37,6 +37,33 @@ https://shio-ax.hatenablog.com/entry/2019/05/27/174018
 ```
 
 ---
+# タイムゾーンの設定
+
+* タイムゾーンの確認
+```
+# ls -la /etc/localtime
+# date
+```
+
+* タイムゾーンの設定
+```
+# ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+「/etc/localtime」が存在してエラーになる場合は、/etc/localtime を rm すればよい。
+```
+
+* RTC の設定情報の確認
+```
+# timedatectl status
+```
+
+* RTC をローカルタイムにする（BIOS で自動起動設定をするため）
+```
+# timedatectl set-local-rtc true
+```
+ただし、上記設定を行うと、timedatectl status で警告が表示されるようになる
+
+---
 # ip アドレスの設定
 * Ubuntu 18 からは、netplan で設定するように変更された。  
 * インストール時に、enp1s0 の設定を行っておくと、netplan用の yaml ファイルが生成されている。  
