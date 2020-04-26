@@ -63,6 +63,12 @@ https://shio-ax.hatenablog.com/entry/2019/05/27/174018
 ```
 ただし、上記設定を行うと、timedatectl status で警告が表示されるようになる
 
+* ローカルタイムの値を、RTC にコピーする。上記の設定で、「RTC in local TZ: yes」にしても、
+RTC の値が自動的にローカルタイムに書き変わらなかったための措置
+```
+# hwclock --systohc
+```
+
 ---
 # ip アドレスの設定
 * Ubuntu 18 からは、netplan で設定するように変更された。  
