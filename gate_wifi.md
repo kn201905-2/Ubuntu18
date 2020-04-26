@@ -443,6 +443,13 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 \# systemctl start isc-dhcp-server
 
 ---
+# 温度管理
+```
+# apt install lm-sensors
+# sensors
+```
+
+---
 # 電源オフ時に、スクリプトを実行させるため、node.js をインストール
 * node.js のインストールは、別ページを参照のこと
 
