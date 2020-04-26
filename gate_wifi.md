@@ -461,18 +461,21 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 初めて crontab -e するときは、使用するエディタを尋ねてくる。vim.basic を選択。
 ```
 以下の１行を追記。不要なコメントはすべて消しておいてよい。
-00 01 * * * /home/shutdown.sh
+00 01 * * * /home/vscode/shutdown/shutdown.sh
 ```
 * 確認  
 \# crontab -l  
 * shutdown.sh の作成  
-\# vim /home/shutdown.sh
+\# vim /home/vscode/shutdown/shutdown.sh
 ```
 #!/bin/sh
+node /home/vscode/shutdown/copy_iptables_log.js
 /sbin/shutdown -h now  # おそらく、-h は必要ない
 ```
 * shutdown.sh が実行可能なようにする  
 \# chmod +x shutdown.sh
+
+* copy_iptables_log.js を用意する
 
 ---
 # AM 6:30 に電源オン
