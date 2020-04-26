@@ -437,6 +437,10 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 \# systemctl start isc-dhcp-server
 
 ---
+# 電源オフ時に、スクリプトを実行させるため、node.js をインストール
+(別ページを参照のこと)
+
+---
 # AM 1:00 に電源オフ
 \# crontab -e  
 初めて crontab -e するときは、使用するエディタを尋ねてくる。vim.basic を選択。
