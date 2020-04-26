@@ -438,7 +438,9 @@ Can't create PID file /run/dhcp-server/dhcpd.pid
 
 ---
 # 電源オフ時に、スクリプトを実行させるため、node.js をインストール
-(別ページを参照のこと)
+* node.js のインストールは、別ページを参照のこと
+
+* 電源オフ時に実行するスクリプトを設定（copy_iptables_log.js）
 
 ---
 # AM 1:00 に電源オフ
