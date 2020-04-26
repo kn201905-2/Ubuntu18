@@ -369,33 +369,6 @@ iptables -A U_LOG -j NFLOG --nflog-group 0 --nflog-prefix 'iptables:' --nflog-th
 * iptables の設定
 
 ---
-# ipアドレス、route の設定
-
-\# vim /etc/netplan/01-netcfg.yaml
-```
-# This file describes the network interfaces available on your system
-# For more information, see netplan(5).
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    enp1s0:
-      dhcp4: no
-      dhcp6: no
-      addresses: [ 192.168.100.3/24 ]
-      gateway4: 192.168.100.1
-      nameservers:
-        addresses: [ 8.8.8.8 ]
-      routes:
-        - to: 192.168.0.0/24
-          via: 192.168.100.2
-    enp3s0:
-      dhcp4: no
-      dhcp6: no
-      addresses: [ 192.168.1.100/24 ]
-```
-
----
 # DHCP サーバー
 * 今回は、isc-dhcp-server を利用した。（Internet Systems Consortium）  
 \# apt install -y isc-dhcp-server  
