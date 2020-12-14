@@ -47,8 +47,8 @@ PermitRootLogin prohibit-password
 ---
 # インストール後に行ったこと
 ```
-# sudo apt update（ソフトの更新確認）
-# sudo apt upgrade（ソフトの更新）
+# apt update（ソフトの更新確認）
+# apt upgrade（ソフトの更新）
 
 # ufw status（inactive の確認）
 
@@ -60,6 +60,7 @@ PermitRootLogin prohibit-password
 * vim の設定  
 ~/.bashrc に以下を記述
 ```
+PS1="\[\e[1;36m\][SMB \w]\[\e[0m\]\n\\$ "
 alias vim='vim -c start'
 ```
 
