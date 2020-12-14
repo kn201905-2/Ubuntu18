@@ -26,6 +26,24 @@ network:
 * 以上で ssh 接続が可能となる。
 
 ---
+# ssh をルートでログインできるように
+```
+# vim /etc/ssh/sshd_config
+
+Port ***
+PermitRootLogin prohibit-password
+```
+
+* 公開鍵の作成
+``
+# ssh-keygen -t -rsa
+
+# cd .ssh/
+# cat id_rsa.pub >> authorized_keys
+```
+* id_rsa を、Win 側に転送し、RLogin に登録する
+
+---
 # インストール後に行ったこと
 ```
 # sudo apt update（ソフトの更新確認）
