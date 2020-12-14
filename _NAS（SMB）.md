@@ -82,6 +82,34 @@ GRUB_CMDLINE_LINUX_DEFAULT="consoleblank=60"
 ```
 
 ---
+# code-server v3 のインストール
+参考URL:  
+https://github.com/cdr/code-server  
+https://github.com/cdr/code-server/blob/v3.7.4/doc/install.md
+```
+# curl -fsSL https://code-server.dev/install.sh | sh
+...
+To have systemd start code-server now and restart on boot:
+  sudo systemctl enable --now code-server@$USER
+Or, if you don't want/need a background service you can run:
+  code-server
+```
+* 設定ファイルの書き換え
+```
+# cd ~/.config/code-server
+# vim config.yaml
+
+bind-addr: 0.0.0.0:****
+（auth: none）
+```
+* code-server の起動
+```
+# code-server
+```
+* 右下の設定アイコンから「Color Theme」を選択 -> Dark テーマに変更  
+* 「Ctrl + Shift + p」でコマンドパレットを開き、「setting.json」を選択し、適切に設定する
+
+---
 # samba の設定
 * 別ページを参照のこと
 
