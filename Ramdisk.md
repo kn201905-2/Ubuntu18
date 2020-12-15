@@ -25,7 +25,8 @@ tmpfs /home/shared/ramdisk tmpfs defaults,size=12G,noatime,mode=0700,uid=user-k,
 
 * 起動時にRAMディスクにディレクトリを作成するように設定する。一部のサービスは、サービス起動時にワーキングディレクトリの存在が必要となる。
 
-\# vim /etc/rc.local  
+`# vim /etc/rc.local`
+
 ```
 #!/bin/bash
 
@@ -54,10 +55,11 @@ chown root.utmp /var/log/wtmp
 chown root.utmp /var/log/btmp
 ```
 
-* 上記の rc.local に、実行権限を与える　# chmod +x /etc/rc.local
+* 上記の rc.local に、実行権限を与える　`# chmod +x /etc/rc.local`
+
 * smbd より先に rc.local が実行されるように設定する
 
-\# vim /lib/systemd/system/smbd.service
+`# vim /lib/systemd/system/smbd.service`
 ```
 [Unit] の After を以下のように変更する。
 
