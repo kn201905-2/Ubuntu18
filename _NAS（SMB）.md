@@ -249,13 +249,3 @@ WantedBy = multi-user.target
 * 別ページを参照のこと
 * 家庭内LAN においては、NGN を通すわけではないから、v6 と v4 のパケット変換は発生しない。
 
----
-# ssh ポート番号の変更等
-* \# vim /etc/ssh/sshd_config
-```
-Port 3002
-（？？これはエラーとなった）AddressFamily inet
-（？？これはエラーとなった）ListenAddress 192.168.100.2   # GATE_study
-上記の代替策として、iptables で受け入れ先を絞ることにした
-```
-
