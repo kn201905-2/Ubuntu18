@@ -2,7 +2,9 @@
 
 * マウント先の作成　`# mkdir /home/shared/ramdisk`
 
-* fstab の書き換え　`# vim /etc/fstab`
+* fstab の書き換え
+
+`# vim /etc/fstab`
 ```
 # /tmp, /var/tmp -> Ramdisk
 tmpfs /tmp tmpfs defaults,size=256m,noatime,mode=1777 0 0
@@ -26,7 +28,6 @@ tmpfs /home/shared/ramdisk tmpfs defaults,size=12G,noatime,mode=0700,uid=user-k,
 * 起動時にRAMディスクにディレクトリを作成するように設定する。一部のサービスは、サービス起動時にワーキングディレクトリの存在が必要となる。
 
 `# vim /etc/rc.local`
-
 ```
 #!/bin/bash
 
@@ -66,7 +67,6 @@ chown root.utmp /var/log/btmp
 After=network.target rc-local.service
 （nmbd と winbind は利用しないため、削除してよい。winbind は security=domain などの場合に利用されるデーモン）
 ```
-
 
 * Ramdisk に移行するフォルダのファイルを空にしておく
 ```
