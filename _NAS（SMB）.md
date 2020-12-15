@@ -62,6 +62,8 @@ PermitRootLogin prohibit-password
 ```
 PS1="\[\e[1;36m\][SMB \w]\[\e[0m\]\n\\$ "
 alias vim='vim -c start'
+
+緑色： 32 / 黄色： 33 / 青色： 34 / パープル： 35 / シアン： 36 / 白色: 37
 ```
 
 * ディスプレイのスリープの設定  
