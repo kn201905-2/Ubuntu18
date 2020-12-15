@@ -1,7 +1,8 @@
 # Ramdisk
 
 * マウント先の作成　`# mkdir /home/shared/ramdisk`
-* fstab の書き換え `\# vim /etc/fstab`
+
+* fstab の書き換え　`# vim /etc/fstab`
 ```
 # /tmp, /var/tmp -> Ramdisk
 tmpfs /tmp tmpfs defaults,size=256m,noatime,mode=1777 0 0
