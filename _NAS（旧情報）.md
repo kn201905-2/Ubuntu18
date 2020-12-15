@@ -1,3 +1,6 @@
+# !!! 旧情報 !!!
+
+---
 # パーティションの設定
 ```
 https://shell-mag.com/2nd_linuxoperations/
