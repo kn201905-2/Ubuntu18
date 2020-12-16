@@ -4,7 +4,7 @@
 * OpenSSH のみを追加した。
 
 ---
-# インストール直後
+# ~~インストール直後~~
 * ssh 接続ができるように、netplan を書き換えた
 ```
 # cd /etc/netplan
@@ -77,7 +77,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="consoleblank=60"
 # update-grub
 ```
 
-* S.M.A.R.T のインストール
+* ~~S.M.A.R.T のインストール~~
 ```
 # apt install smartmontools
 # smartctl --version（インストールの確認）
