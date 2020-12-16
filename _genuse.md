@@ -247,7 +247,7 @@ WantedBy = multi-user.target
 * iptables に関する syslog を分離する。（別ページを参照のこと）
 
 ---
-# IPv6 の無効化
+# ~~IPv6 の無効化~~
 * 別ページを参照のこと
 * 家庭内LAN においては、NGN を通すわけではないから、v6 と v4 のパケット変換は発生しない。
 
