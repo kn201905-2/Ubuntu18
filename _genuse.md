@@ -278,7 +278,11 @@ WantedBy = multi-user.target
 ```
 
 ---
-# 種々の作業
+# ~~種々の作業~~
 * pv をインストール　`# apt install pv`
 * `_ramdisk_copy.sh` をコピー
 * `kill_smartctl.js` をコピーして、node で起動するためのバッチファイルを作成
+
+---
+# docker のインストール
+
