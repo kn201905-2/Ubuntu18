@@ -120,11 +120,11 @@ bind-addr: 0.0.0.0:****
 * 別ページを参照のこと
 
 ---
-# 外付けHDDとの接続について（UAS無効化）
+# ~~外付けHDDとの接続について（UAS無効化）~~
 * 別ページを参照のこと
 
 ---
-# udev を用いた 外付けHDD の自動マウント
+# ~~udev を用いた 外付けHDD の自動マウント~~
 * 外付け対象となる HDD の情報が知りたい場合　# lsblk -f
 
 * ネットに掲載されている情報のように、udev から直接 mount コマンドを起動させても、デバイスの準備が間に合っていないらしくてマウントできたなかった。そのため、systemd のサービスを用いて mount コマンドを実行させることにする。
@@ -192,13 +192,13 @@ BASH_OPR="while true; do sleep 540s; { echo; date; smartctl -A ${DEVICE/%?} | gr
 \# chmod +x hdd-automount.sh
 
 ---
-# 自動マウントを考える際、有益となるコマンド
+# ~~自動マウントを考える際、有益となるコマンド~~
 * udevadm info --query=all -n /dev/sdb1
 * udevadm control --reload
 * systemctl daemon-reload
 
 ---
-# (参考) 自動マウントを行うもう１つの方法
+# ~~(参考) 自動マウントを行うもう１つの方法~~
 * udisksctl の monitor 機能を用いて、外付けHDDの自動マウントを実現することも可能であった。  
 ただ、ずっと monitor しているのは、あまり好ましいと思わなかったので、この方法は採用していない。
 
